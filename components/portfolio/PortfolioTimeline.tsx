@@ -7,17 +7,6 @@ import { cn } from "@/lib/utils";
 import { ExternalLink, ChevronDown, Film, Tv, Music, Zap, Briefcase, Video } from "lucide-react";
 import type { ElementType } from "react";
 
-const CATEGORIES = [
-  "All",
-  "TV Commercial",
-  "Film / Documentary",
-  "Documentary",
-  "Short Film",
-  "Music Video",
-  "Corporate Film",
-  "Live Event",
-];
-
 const CATEGORY_ICONS: Record<string, ElementType> = {
   "TV Commercial": Tv,
   "Documentary": Film,
@@ -93,9 +82,14 @@ function PortfolioCard({
         />
       </div>
 
-      {/* Left slot — content or spacer */}
-      <div className={cn("md:text-right", !isLeft && "md:order-2")}>
-        {isLeft ? (
+      {/*
+        DESKTOP LAYOUT (md+):
+        Left slot — card (when isLeft) or spacer
+        Right slot — card (when !isLeft) or spacer
+        Both slots are hidden on mobile.
+      */}
+      <div className={cn("hidden md:block md:text-right", !isLeft && "md:order-2")}>
+        {isLeft && (
           <CardContent
             project={project}
             expanded={expanded}
@@ -103,14 +97,11 @@ function PortfolioCard({
             Icon={Icon}
             align="right"
           />
-        ) : (
-          <div className="hidden md:block" />
         )}
       </div>
 
-      {/* Right slot — content or spacer */}
-      <div className={cn(!isLeft && "md:order-1")}>
-        {!isLeft ? (
+      <div className={cn("hidden md:block", !isLeft && "md:order-1")}>
+        {!isLeft && (
           <CardContent
             project={project}
             expanded={expanded}
@@ -118,12 +109,15 @@ function PortfolioCard({
             Icon={Icon}
             align="left"
           />
-        ) : (
-          <div className="hidden md:block" />
         )}
       </div>
 
-      {/* Mobile: always full width */}
+      {/*
+        MOBILE LAYOUT (< md):
+        Full-width card with left padding for the dot.
+        col-span-2 ensures it spans both grid columns on desktop
+        but it's already hidden on md+ via md:hidden.
+      */}
       <div className="md:hidden col-span-2 pl-14">
         <CardContent
           project={project}
@@ -131,7 +125,6 @@ function PortfolioCard({
           setExpanded={setExpanded}
           Icon={Icon}
           align="left"
-          mobile
         />
       </div>
     </div>
@@ -144,26 +137,21 @@ function CardContent({
   setExpanded,
   Icon,
   align,
-  mobile = false,
 }: {
   project: (typeof PORTFOLIO)[0];
   expanded: boolean;
   setExpanded: (v: boolean) => void;
   Icon: ElementType;
   align: "left" | "right";
-  mobile?: boolean;
 }) {
   return (
-    <div
-      className={cn(
-        "group relative rounded-2xl glass border border-border hover:border-[rgba(201,168,76,0.2)] transition-all duration-400 overflow-hidden",
-        mobile && "hidden"
-      )}
-    >
+    <div className="group relative rounded-2xl glass border border-border hover:border-[rgba(201,168,76,0.2)] transition-all duration-300 overflow-hidden">
       {/* Top accent bar */}
       <div
         className="h-0.5 w-full"
-        style={{ background: `linear-gradient(to ${align === "right" ? "left" : "right"}, ${project.categoryColor}, transparent)` }}
+        style={{
+          background: `linear-gradient(to ${align === "right" ? "left" : "right"}, ${project.categoryColor}, transparent)`,
+        }}
       />
 
       <div className="p-6">
@@ -235,7 +223,7 @@ function CardContent({
 
           <div
             className={cn(
-              "overflow-hidden transition-all duration-400",
+              "overflow-hidden transition-all duration-300",
               expanded ? "max-h-48 opacity-100" : "max-h-0 opacity-0"
             )}
           >
@@ -299,7 +287,7 @@ function CardContent({
 export function PortfolioTimeline() {
   const [activeCategory, setActiveCategory] = useState("All");
 
-  // Get unique categories from data
+  // Derive unique categories from data (no hardcoded list needed)
   const availableCategories = useMemo(() => {
     const cats = new Set(PORTFOLIO.map((p) => p.category));
     return ["All", ...Array.from(cats)];
@@ -310,14 +298,13 @@ export function PortfolioTimeline() {
     return PORTFOLIO.filter((p) => p.category === activeCategory);
   }, [activeCategory]);
 
-  // Group by year
+  // Group by year, sorted descending
   const byYear = useMemo(() => {
     const map = new Map<string, (typeof PORTFOLIO)>();
     filtered.forEach((p) => {
       if (!map.has(p.year)) map.set(p.year, []);
       map.get(p.year)!.push(p);
     });
-    // Sort years descending
     return Array.from(map.entries()).sort((a, b) => Number(b[0]) - Number(a[0]));
   }, [filtered]);
 
@@ -358,8 +345,6 @@ export function PortfolioTimeline() {
             {/* Central timeline line */}
             <div className="relative">
               <div className="timeline-line" />
-
-              {/* Cards */}
               <div className="relative z-10 space-y-0">
                 {projects.map((project, idx) => (
                   <PortfolioCard

@@ -3,7 +3,18 @@
 import { TEAM } from "@/lib/data";
 import { useInView } from "@/hooks/useInView";
 import { cn } from "@/lib/utils";
-import { Linkedin, Award } from "lucide-react";
+import { Award } from "lucide-react";
+
+// Inline SVG — lucide-react v1.x removed Linkedin
+function LinkedinIcon({ size = 13 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect x="2" y="9" width="4" height="12" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
 
 // Avatar initials generator
 function Avatar({ name, index }: { name: string; index: number }) {
@@ -115,8 +126,9 @@ function TeamCard({ member, index }: { member: (typeof TEAM)[0]; index: number }
             target="_blank"
             rel="noopener noreferrer"
             className="w-8 h-8 rounded-lg glass flex items-center justify-center text-text-muted hover:text-gold transition-colors duration-200 shrink-0"
+            aria-label={`${member.name} on LinkedIn`}
           >
-            <Linkedin size={13} />
+            <LinkedinIcon size={13} />
           </a>
         </div>
       </div>

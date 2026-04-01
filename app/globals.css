@@ -9,22 +9,22 @@
   --color-gold: #c9a84c;
   --color-gold-light: #e8c97a;
   --color-gold-dark: #9a7b30;
-  --color-gold-muted: rgba(201, 168, 76, 0.12);
+  --color-gold-muted: rgba(201, 168, 76, 0.1);
 
-  /* Backgrounds */
-  --color-bg: #070708;
-  --color-surface: #0f0f11;
-  --color-surface-2: #161618;
-  --color-surface-3: #1e1e21;
+  /* Backgrounds — slightly brighter for elegance */
+  --color-bg: #0f0f12;
+  --color-surface: #161619;
+  --color-surface-2: #1b1b1f;
+  --color-surface-3: #212125;
 
   /* Borders */
-  --color-border: rgba(255, 255, 255, 0.06);
-  --color-border-gold: rgba(201, 168, 76, 0.25);
+  --color-border: rgba(255, 255, 255, 0.07);
+  --color-border-gold: rgba(201, 168, 76, 0.2);
 
   /* Text */
-  --color-text: #f0ede8;
-  --color-text-muted: #6b6965;
-  --color-text-subtle: #3a3835;
+  --color-text: #ece9e4;
+  --color-text-muted: #6a6865;
+  --color-text-subtle: #38363380;
 
   /* Accents */
   --color-accent-red: #ff3b5c;
@@ -58,13 +58,13 @@ body {
 }
 
 ::selection {
-  background: rgba(201, 168, 76, 0.3);
+  background: rgba(201, 168, 76, 0.25);
   color: #fff;
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 3px;
 }
 ::-webkit-scrollbar-track {
   background: var(--color-bg);
@@ -74,7 +74,7 @@ body {
   border-radius: 2px;
 }
 
-/* ────────── Noise / Grain overlay ────────── */
+/* ────────── Noise / Grain overlay — subtle ────────── */
 body::before {
   content: "";
   position: fixed;
@@ -84,28 +84,28 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 128px 128px;
-  opacity: 0.4;
+  opacity: 0.18;
 }
 
 /* ────────── Glassmorphism Utility ────────── */
 .glass {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .glass-gold {
-  background: rgba(201, 168, 76, 0.06);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(201, 168, 76, 0.18);
+  background: rgba(201, 168, 76, 0.05);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(201, 168, 76, 0.15);
 }
 
 .glass-dark {
-  background: rgba(7, 7, 8, 0.7);
-  backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  background: rgba(15, 15, 18, 0.75);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -126,20 +126,19 @@ body::before {
 
 /* ────────── Glow Effects ────────── */
 .glow-gold {
-  box-shadow: 0 0 40px rgba(201, 168, 76, 0.2), 0 0 80px rgba(201, 168, 76, 0.05);
+  box-shadow: 0 0 30px rgba(201, 168, 76, 0.15), 0 0 60px rgba(201, 168, 76, 0.04);
 }
 
 .glow-gold-text {
-  text-shadow: 0 0 30px rgba(201, 168, 76, 0.5);
+  text-shadow: 0 0 24px rgba(201, 168, 76, 0.4);
 }
 
 /* ────────── Animations ────────── */
 
-/* Fade Up */
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(32px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -147,17 +146,15 @@ body::before {
   }
 }
 
-/* Fade In */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-/* Scale In */
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.92);
+    transform: scale(0.94);
   }
   to {
     opacity: 1;
@@ -165,7 +162,6 @@ body::before {
   }
 }
 
-/* Marquee */
 @keyframes marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
@@ -176,62 +172,52 @@ body::before {
   to { transform: translateX(0); }
 }
 
-/* Pulse Gold */
 @keyframes pulseGold {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  50% { opacity: 0.4; }
 }
 
-/* Shimmer */
 @keyframes shimmer {
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
 }
 
-/* Rotate slow */
 @keyframes rotateSlow {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
-/* Float */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-12px); }
-}
-
-/* Line draw */
-@keyframes lineDraw {
-  from { scaleX: 0; }
-  to { scaleX: 1; }
+  50% { transform: translateY(-10px); }
 }
 
 .animate-fade-up {
-  animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.8s ease forwards;
+  animation: fadeIn 0.7s ease forwards;
 }
 
 .animate-scale-in {
-  animation: scaleIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: scaleIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .animate-marquee {
-  animation: marquee 30s linear infinite;
+  animation: marquee 28s linear infinite;
 }
 
 .animate-marquee-reverse {
-  animation: marqueeReverse 35s linear infinite;
+  animation: marqueeReverse 32s linear infinite;
 }
 
 .animate-pulse-gold {
-  animation: pulseGold 2s ease-in-out infinite;
+  animation: pulseGold 2.5s ease-in-out infinite;
 }
 
 .animate-float {
-  animation: float 4s ease-in-out infinite;
+  animation: float 5s ease-in-out infinite;
 }
 
 .animate-rotate-slow {
@@ -248,15 +234,14 @@ body::before {
 .delay-700 { animation-delay: 700ms; }
 .delay-800 { animation-delay: 800ms; }
 
-/* Paused state for JS control */
 .paused { animation-play-state: paused; }
 
-/* ────────── Reveal Animation via JS class ────────── */
+/* ────────── Reveal Animation ────────── */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .reveal.visible {
@@ -266,9 +251,9 @@ body::before {
 
 .reveal-scale {
   opacity: 0;
-  transform: scale(0.94);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: scale(0.95);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .reveal-scale.visible {
@@ -279,19 +264,19 @@ body::before {
 /* ────────── Divider Lines ────────── */
 .divider-gold {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.3), transparent);
 }
 
 /* ────────── Section Spacing ────────── */
 .section {
-  padding-top: 7rem;
-  padding-bottom: 7rem;
+  padding-top: 5.5rem;
+  padding-bottom: 5.5rem;
 }
 
 @media (max-width: 768px) {
   .section {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
   }
 }
 
@@ -334,8 +319,8 @@ a, button, [role="button"] {
   background: linear-gradient(
     to bottom,
     transparent,
-    rgba(201, 168, 76, 0.3) 10%,
-    rgba(201, 168, 76, 0.3) 90%,
+    rgba(201, 168, 76, 0.2) 10%,
+    rgba(201, 168, 76, 0.2) 90%,
     transparent
   );
   transform: translateX(-50%);

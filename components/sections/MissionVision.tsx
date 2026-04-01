@@ -1,111 +1,142 @@
 "use client";
 
-import { MISSION_VISION } from "@/lib/data";
 import { useInView } from "@/hooks/useInView";
 import { cn } from "@/lib/utils";
-import { Eye, Target, CheckCircle2 } from "lucide-react";
+import { Award, Globe2, Users } from "lucide-react";
 
-export function MissionVision() {
-  const { ref, inView } = useInView({ threshold: 0.1 });
+const PILLARS = [
+  {
+    Icon: Award,
+    title: "Award-Winning Craft",
+    desc: "Productions that have screened at FESPACO, received Cannes Lions recognition, and set the benchmark for African media quality.",
+  },
+  {
+    Icon: Globe2,
+    title: "Pan-African Reach",
+    desc: "Strategic partnerships with broadcasters, streaming platforms, and distribution networks across 30+ African countries.",
+  },
+  {
+    Icon: Users,
+    title: "A-List Talent Roster",
+    desc: "Directors, cinematographers, composers, and editors who have worked with the world's most respected production companies.",
+  },
+];
+
+export function About() {
+  const { ref: leftRef, inView: leftIn } = useInView({ threshold: 0.12 });
+  const { ref: rightRef, inView: rightIn } = useInView({ threshold: 0.12 });
 
   return (
-    <section id="mission" className="section relative overflow-hidden bg-surface/30">
-      {/* BG glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full blur-[150px]"
-          style={{ background: "radial-gradient(ellipse, rgba(201,168,76,0.04) 0%, transparent 70%)" }}
-        />
-      </div>
-
+    <section id="about" className="section relative overflow-hidden">
       <div
-        ref={ref as React.RefObject<HTMLDivElement>}
-        className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-      >
-        {/* Section label */}
-        <div className={cn("reveal text-center mb-14", inView && "visible")}>
-          <div className="inline-flex items-center gap-3 glass-gold rounded-full px-5 py-2 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-gold" />
-            <span className="font-sans text-xs tracking-[0.2em] uppercase text-gold">
-              Purpose & Direction
-            </span>
-          </div>
-          <h2
-            className="font-display font-light tracking-tight"
-            style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", lineHeight: 1.1 }}
+        className="absolute top-0 right-0 w-1/2 h-full pointer-events-none opacity-20"
+        style={{
+          background:
+            "radial-gradient(ellipse at top right, rgba(201,168,76,0.07) 0%, transparent 60%)",
+        }}
+      />
+
+      <div className="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* Left — text */}
+          <div
+            ref={leftRef as React.RefObject<HTMLDivElement>}
+            className={cn("reveal space-y-7", leftIn && "visible")}
           >
-            <span className="text-gradient-gold italic">Mission.</span>{" "}
-            <span className="text-gradient-white">Vision.</span>{" "}
-            <span className="text-gradient-gold italic">Values.</span>
-          </h2>
-        </div>
+            <div>
+              <div className="inline-flex items-center gap-3 glass-gold rounded-full px-5 py-2 mb-5">
+                <span className="w-1.5 h-1.5 rounded-full bg-gold" />
+                <span className="font-sans text-xs tracking-[0.2em] uppercase text-gold">
+                  Who We Are
+                </span>
+              </div>
 
-        {/* Mission / Vision cards */}
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
-          {[
-            {
-              Icon: Target,
-              title: "Our Mission",
-              text: MISSION_VISION.mission,
-              delay: "0ms",
-            },
-            {
-              Icon: Eye,
-              title: "Our Vision",
-              text: MISSION_VISION.vision,
-              delay: "100ms",
-            },
-          ].map(({ Icon, title, text, delay }) => (
-            <div
-              key={title}
-              className={cn(
-                "reveal relative p-8 md:p-10 rounded-2xl glass border border-border hover:border-gold/20 transition-all duration-500 overflow-hidden group",
-                inView && "visible"
-              )}
-              style={{ transitionDelay: delay }}
+              <h2
+                className="font-display font-light tracking-tight"
+                style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.8rem)", lineHeight: 1.1 }}
+              >
+                <span className="text-gradient-white">Storytellers.</span>
+                <br />
+                <span className="text-gradient-gold italic">Innovators.</span>
+                <br />
+                <span className="text-gradient-white">Africans.</span>
+              </h2>
+            </div>
+
+            <div className="space-y-4 font-sans text-text-muted leading-relaxed text-sm md:text-base">
+              <p>
+                Founded in{" "}
+                <span className="text-gold font-medium">Addis Ababa</span> with
+                a mandate to elevate African storytelling to global standards,
+                Next Level Media has grown into the continent&apos;s most trusted
+                full-service production company.
+              </p>
+              <p>
+                We serve banks, NGOs, real estate developers, government bodies,
+                FMCG brands, and independent artists who demand work that moves
+                people and endures.
+              </p>
+              <p>
+                Our studio houses 4K cinema cameras, Dolby-certified sound
+                stages, color grading suites, and a post-production pipeline
+                built to international broadcast standards.
+              </p>
+            </div>
+
+            <a
+              href="/#contact"
+              className="inline-flex items-center gap-2.5 font-sans text-sm text-gold hover-underline tracking-wide group"
             >
-              {/* Corner accent */}
-              <div className="absolute top-0 right-0 w-32 h-32 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{ background: "radial-gradient(circle at top right, rgba(201,168,76,0.08), transparent 70%)" }}
-              />
+              Work with us
+              <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+            </a>
+          </div>
 
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl glass-gold flex items-center justify-center">
-                  <Icon size={20} className="text-gold" />
+          {/* Right — pillars */}
+          <div
+            ref={rightRef as React.RefObject<HTMLDivElement>}
+            className={cn("reveal space-y-3", rightIn && "visible")}
+            style={{ transitionDelay: "120ms" }}
+          >
+            {PILLARS.map(({ Icon, title, desc }, i) => (
+              <div
+                key={title}
+                className="group flex gap-4 p-5 glass rounded-2xl border border-border hover:border-gold/15 transition-all duration-300"
+                style={{ transitionDelay: `${i * 70}ms` }}
+              >
+                <div className="flex-shrink-0 w-10 h-10 rounded-xl glass-gold flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+                  <Icon size={16} className="text-gold" />
                 </div>
-                <h3 className="font-display text-2xl font-medium text-gradient-gold">
-                  {title}
-                </h3>
+                <div>
+                  <h3 className="font-display text-base md:text-lg font-medium text-text mb-1">
+                    {title}
+                  </h3>
+                  <p className="font-sans text-sm text-text-muted leading-relaxed">
+                    {desc}
+                  </p>
+                </div>
               </div>
-              <p className="font-sans text-text-muted leading-relaxed text-base">
-                {text}
-              </p>
-            </div>
-          ))}
-        </div>
+            ))}
 
-        {/* Values grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {MISSION_VISION.values.map(({ title, desc }, i) => (
-            <div
-              key={title}
-              className={cn(
-                "reveal p-6 rounded-xl border border-border hover:border-gold/20 transition-all duration-300 group",
-                inView && "visible"
-              )}
-              style={{ transitionDelay: `${200 + i * 80}ms` }}
-            >
-              <div className="flex items-start gap-3 mb-3">
-                <CheckCircle2 size={16} className="text-gold mt-0.5 shrink-0" />
-                <h4 className="font-sans font-semibold text-sm text-text tracking-wide group-hover:text-gold transition-colors duration-200">
-                  {title}
-                </h4>
+            {/* Capability bar */}
+            <div className="mt-2 glass-gold rounded-2xl p-5">
+              <div className="flex items-center justify-between mb-2.5">
+                <span className="font-sans text-xs tracking-widest uppercase text-gold">
+                  Production Capabilities
+                </span>
+                <span className="font-display text-lg text-gold">100%</span>
               </div>
-              <p className="font-sans text-xs text-text-muted leading-relaxed pl-7">
-                {desc}
+              <div className="h-px bg-border rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-gold-dark via-gold to-gold-light rounded-full"
+                  style={{ width: "100%" }}
+                />
+              </div>
+              <p className="mt-2.5 font-sans text-xs text-text-muted">
+                Full in-house capabilities — development through distribution
               </p>
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </section>
